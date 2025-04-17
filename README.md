@@ -47,7 +47,7 @@ This repository contains the service code for the Enterprise Data Warehouse (EDW
 - `power_bi/`: Power BI reports and dashboards
 
 ### CI/CD
-- `github_actions/`: GitHub Actions workflows
+- `bitbucket-pipelines/`: Bitbucket Pipelines configurations
 - `scripts/`: CI/CD automation scripts
 
 ### Documentation

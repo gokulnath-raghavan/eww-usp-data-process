@@ -1,0 +1,64 @@
+image: python:3.9
+
+pipelines:
+  default:
+    - step:
+        name: Test and Build
+        caches:
+          - pip
+        script:
+          - pip install -r requirements.txt
+          - python -m pytest tests/
+        artifacts:
+          - dist/**
+    - step:
+        name: Deploy to Dev
+        deployment: dev
+        trigger: manual
+        script:
+          - echo "Deploying to dev environment"
+    - step:
+        name: Deploy to Test
+        deployment: test
+        trigger: manual
+        script:
+          - echo "Deploying to test environment"
+    - step:
+        name: Deploy to Prod
+        deployment: prod
+        trigger: manual
+        script:
+          - echo "Deploying to prod environment"
+
+  branches:
+    main:
+      - step:
+          name: Test and Build
+          caches:
+            - pip
+          script:
+            - pip install -r requirements.txt
+            - python -m pytest tests/
+          artifacts:
+            - dist/**
+      - step:
+          name: Deploy to Dev
+          deployment: dev
+          script:
+            - echo "Deploying to dev environment"
+      - step:
+          name: Deploy to Test
+          deployment: test
+          trigger: manual
+          script:
+            - echo "Deploying to test environment"
+      - step:
+          name: Deploy to Prod
+          deployment: prod
+          trigger: manual
+          script:
+            - echo "Deploying to prod environment"
+
+definitions:
+  caches:
+    pip: ~/.cache/pip 
